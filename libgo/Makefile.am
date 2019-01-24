@@ -40,13 +40,13 @@ AM_CPPFLAGS = -I $(srcdir)/runtime $(LIBFFIINCS) $(PTHREAD_CFLAGS)
 
 ACLOCAL_AMFLAGS = -I ./config -I ../config
 
-AM_CFLAGS = -fexceptions -fnon-call-exceptions \
+AM_CFLAGS = -fexceptions -fnon-call-exceptions -flto=jobserver \
 	$(SPLIT_STACK) $(WARN_CFLAGS) \
 	$(STRINGOPS_FLAG) $(HWCAP_CFLAGS) $(OSCFLAGS) \
 	-I $(srcdir)/../libgcc -I $(srcdir)/../libbacktrace \
-	-I $(MULTIBUILDTOP)../../gcc/include
+	-I $(MULTIBUILDTOP)../../gcc/include -fwrapv
 
-AM_LDFLAGS =
+AM_LDFLAGS = -flto=jobserver
 
 if USING_SPLIT_STACK
 AM_LDFLAGS += -XCClinker $(SPLIT_STACK)
@@ -783,7 +783,7 @@ $(libgolibbegin_a_OBJECTS): runtime.inc
 LTLDFLAGS = $(shell $(SHELL) $(top_srcdir)/../libtool-ldflags $(LDFLAGS))
 
 GOCFLAGS = $(CFLAGS)
-AM_GOCFLAGS = $(STRINGOPS_FLAG) $(GO_SPLIT_STACK)
+AM_GOCFLAGS = $(STRINGOPS_FLAG) $(GO_SPLIT_STACK) -flto=jobserver
 GOCOMPILE = $(GOC) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_GOCFLAGS) $(GOCFLAGS)
 
 LTGOCOMPILE = $(LIBTOOL) --tag GO --mode=compile $(GOC) $(INCLUDES) \
