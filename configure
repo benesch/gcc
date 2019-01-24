@@ -14370,13 +14370,13 @@ $as_echo "pre-installed" >&6; }
 else
   ok=yes
   case " ${configdirs} " in
-    *" binutils "*) ;;
+    *" gcc "*) ;;
     *) ok=no ;;
   esac
 
   if test $ok = yes; then
     # An in-tree tool is available and we can use it
-    AR_FOR_TARGET='$$r/$(HOST_SUBDIR)/binutils/ar'
+    AR_FOR_TARGET='$$r/$(HOST_SUBDIR)/gcc/gcc-ar -B$$r/$(HOST_SUBDIR)/gcc/'
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: just compiled" >&5
 $as_echo "just compiled" >&6; }
   elif expr "x$AR_FOR_TARGET" : "x/" > /dev/null; then
@@ -15035,13 +15035,13 @@ $as_echo "pre-installed" >&6; }
 else
   ok=yes
   case " ${configdirs} " in
-    *" binutils "*) ;;
+    *" gcc "*) ;;
     *) ok=no ;;
   esac
 
   if test $ok = yes; then
     # An in-tree tool is available and we can use it
-    RANLIB_FOR_TARGET='$$r/$(HOST_SUBDIR)/binutils/ranlib'
+    RANLIB_FOR_TARGET='$$r/$(HOST_SUBDIR)/gcc/gcc-ranlib -B$$r/$(HOST_SUBDIR)/gcc/'
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: just compiled" >&5
 $as_echo "just compiled" >&6; }
   elif expr "x$RANLIB_FOR_TARGET" : "x/" > /dev/null; then
