@@ -185,7 +185,7 @@ fixcontext(ucontext_t* c)
 // different thread.  We use non-inlinable functions to avoid this
 // when necessary.
 
-G* runtime_g(void) __attribute__ ((noinline, no_split_stack));
+G* runtime_g(void) __attribute__ ((no_split_stack));
 
 G*
 runtime_g(void)
@@ -193,7 +193,7 @@ runtime_g(void)
 	return g;
 }
 
-M* runtime_m(void) __attribute__ ((noinline, no_split_stack));
+M* runtime_m(void) __attribute__ ((no_split_stack));
 
 M*
 runtime_m(void)
