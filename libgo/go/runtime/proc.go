@@ -2706,7 +2706,9 @@ func goexit1() {
 	if trace.enabled {
 		traceGoEnd()
 	}
+	// println("is this working?")
 	mcall(goexit0)
+	throw("ohtenoes")
 }
 
 // goexit continuation on g0.

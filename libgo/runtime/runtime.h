@@ -521,3 +521,6 @@ bool probestackmaps(void)
 // older versions of glibc when a SIGPROF signal arrives while
 // collecting a backtrace.
 extern uint32 __go_runtime_in_callers;
+
+int go_getcontext(struct gobuf*);
+int go_setcontext(const struct gobuf*);

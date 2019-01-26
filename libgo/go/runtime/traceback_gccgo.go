@@ -181,7 +181,7 @@ func tracebackothers(me *g) {
 
 	// The getTraceback function will modify me's stack context.
 	// Preserve it in case we have been called via systemstack.
-	context := me.context
+	context := me.sched
 	stackcontext := me.stackcontext
 
 	level, _, _ := gotraceback()
@@ -234,6 +234,6 @@ func tracebackothers(me *g) {
 	}
 	unlock(&allglock)
 
-	me.context = context
+	me.sched = context
 	me.stackcontext = stackcontext
 }

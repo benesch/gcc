@@ -10,7 +10,7 @@ uintptr aeshashbody(void*, uintptr, uintptr, Slice)
 	__asm__(GOSYM_PREFIX "runtime.aeshashbody");
 
 uintptr aeshashbody(void*, uintptr, uintptr, Slice)
-	__attribute__((no_split_stack));
+	/*__attribute__((no_split_stack))*/;
 
 #if (defined(__i386__) || defined(__x86_64__)) && defined(HAVE_AS_X86_AES)
 

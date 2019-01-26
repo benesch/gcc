@@ -440,6 +440,7 @@ endif
 
 runtime_files = \
 	runtime/aeshash.c \
+	runtime/context.S \
 	runtime/go-assert.c \
 	runtime/go-caller.c \
 	runtime/go-callers.c \
@@ -600,7 +601,7 @@ s-zdefaultcc: Makefile
 	echo 'const DefaultPkgConfig = "pkg-config"' >> zdefaultcc.go.tmp
 	echo 'var OSArchSupportsCgo = map[string]bool{}' >> zdefaultcc.go.tmp
 	$(SHELL) $(srcdir)/../move-if-change zdefaultcc.go.tmp zdefaultcc.go
-	$(STAMP) $@ 
+	$(STAMP) $@
 
 # Post-process runtime.inc.raw (raw output of -fgo-c-header option when
 # compiling runtime) to prune out certain types that should not be
@@ -821,7 +822,7 @@ BUILDGOX = \
 	$(SHELL) $(srcdir)/mvifdiff.sh $@.tmp `echo $@ | sed -e 's/s-gox/gox/'`
 
 GOTESTFLAGS =
-GOBENCH = 
+GOBENCH =
 
 # Check a package.
 CHECK = \

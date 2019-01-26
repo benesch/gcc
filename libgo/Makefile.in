@@ -238,22 +238,23 @@ libgo_llgo_la_DEPENDENCIES = $(am__DEPENDENCIES_4)
 @LIBGO_IS_DARWIN_FALSE@@LIBGO_IS_IRIX_TRUE@@LIBGO_IS_LINUX_FALSE@am__objects_2 = runtime/getncpu-irix.lo
 @LIBGO_IS_DARWIN_TRUE@@LIBGO_IS_LINUX_FALSE@am__objects_2 = runtime/getncpu-bsd.lo
 @LIBGO_IS_LINUX_TRUE@am__objects_2 = runtime/getncpu-linux.lo
-am__objects_3 = runtime/aeshash.lo runtime/go-assert.lo \
-	runtime/go-caller.lo runtime/go-callers.lo runtime/go-cdiv.lo \
-	runtime/go-cgo.lo runtime/go-construct-map.lo \
-	runtime/go-ffi.lo runtime/go-fieldtrack.lo \
-	runtime/go-matherr.lo runtime/go-memclr.lo \
-	runtime/go-memcmp.lo runtime/go-memequal.lo \
-	runtime/go-memmove.lo runtime/go-nanotime.lo runtime/go-now.lo \
-	runtime/go-nosys.lo runtime/go-reflect-call.lo \
-	runtime/go-runtime-error.lo runtime/go-setenv.lo \
-	runtime/go-signal.lo runtime/go-strslice.lo \
-	runtime/go-typedesc-equal.lo runtime/go-unsafe-pointer.lo \
-	runtime/go-unsetenv.lo runtime/go-unwind.lo \
-	runtime/go-varargs.lo runtime/env_posix.lo runtime/panic.lo \
-	runtime/print.lo runtime/proc.lo runtime/runtime_c.lo \
-	runtime/stack.lo runtime/thread.lo runtime/yield.lo \
-	$(am__objects_1) $(am__objects_2)
+am__objects_3 = runtime/aeshash.lo runtime/context.lo \
+	runtime/go-assert.lo runtime/go-caller.lo \
+	runtime/go-callers.lo runtime/go-cdiv.lo runtime/go-cgo.lo \
+	runtime/go-construct-map.lo runtime/go-ffi.lo \
+	runtime/go-fieldtrack.lo runtime/go-matherr.lo \
+	runtime/go-memclr.lo runtime/go-memcmp.lo \
+	runtime/go-memequal.lo runtime/go-memmove.lo \
+	runtime/go-nanotime.lo runtime/go-now.lo runtime/go-nosys.lo \
+	runtime/go-reflect-call.lo runtime/go-runtime-error.lo \
+	runtime/go-setenv.lo runtime/go-signal.lo \
+	runtime/go-strslice.lo runtime/go-typedesc-equal.lo \
+	runtime/go-unsafe-pointer.lo runtime/go-unsetenv.lo \
+	runtime/go-unwind.lo runtime/go-varargs.lo \
+	runtime/env_posix.lo runtime/panic.lo runtime/print.lo \
+	runtime/proc.lo runtime/runtime_c.lo runtime/stack.lo \
+	runtime/thread.lo runtime/yield.lo $(am__objects_1) \
+	$(am__objects_2)
 am_libgo_llgo_la_OBJECTS = $(am__objects_3)
 libgo_llgo_la_OBJECTS = $(am_libgo_llgo_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -287,6 +288,16 @@ DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/../depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
+CPPASCOMPILE = $(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
+	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS)
+LTCPPASCOMPILE = $(LIBTOOL) $(AM_V_lt) $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=compile $(CCAS) $(DEFS) \
+	$(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
+	$(AM_CCASFLAGS) $(CCASFLAGS)
+AM_V_CPPAS = $(am__v_CPPAS_@AM_V@)
+am__v_CPPAS_ = $(am__v_CPPAS_@AM_DEFAULT_V@)
+am__v_CPPAS_0 = @echo "  CPPAS   " $@;
+am__v_CPPAS_1 = 
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -380,6 +391,9 @@ AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
 CC = @CC@
+CCAS = @CCAS@
+CCASDEPMODE = @CCASDEPMODE@
+CCASFLAGS = @CCASFLAGS@
 CCDEPMODE = @CCDEPMODE@
 CC_FOR_BUILD = @CC_FOR_BUILD@
 CFLAGS = @CFLAGS@
@@ -866,6 +880,7 @@ noinst_DATA = golang_org/x/net/internal/nettest.gox \
 @LIBGO_IS_LINUX_TRUE@runtime_getncpu_file = runtime/getncpu-linux.c
 runtime_files = \
 	runtime/aeshash.c \
+	runtime/context.S \
 	runtime/go-assert.c \
 	runtime/go-caller.c \
 	runtime/go-callers.c \
@@ -1158,7 +1173,7 @@ all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
 .SUFFIXES:
-.SUFFIXES: .c .go .gox .o .obj .lo .a
+.SUFFIXES: .c .go .gox .o .obj .lo .a .S
 am--refresh: Makefile
 	@:
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am $(top_srcdir)/../multilib.am $(am__configure_deps)
@@ -1311,6 +1326,8 @@ clean-toolexeclibLTLIBRARIES:
 	}
 runtime/aeshash.lo: runtime/$(am__dirstamp) \
 	runtime/$(DEPDIR)/$(am__dirstamp)
+runtime/context.lo: runtime/$(am__dirstamp) \
+	runtime/$(DEPDIR)/$(am__dirstamp)
 runtime/go-assert.lo: runtime/$(am__dirstamp) \
 	runtime/$(DEPDIR)/$(am__dirstamp)
 runtime/go-caller.lo: runtime/$(am__dirstamp) \
@@ -1409,6 +1426,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@runtime/$(DEPDIR)/aeshash.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@runtime/$(DEPDIR)/context.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@runtime/$(DEPDIR)/env_posix.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@runtime/$(DEPDIR)/getncpu-aix.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@runtime/$(DEPDIR)/getncpu-bsd.Plo@am__quote@
@@ -1453,6 +1471,30 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@runtime/$(DEPDIR)/stack.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@runtime/$(DEPDIR)/thread.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@runtime/$(DEPDIR)/yield.Plo@am__quote@
+
+.S.o:
+@am__fastdepCCAS_TRUE@	$(AM_V_CPPAS)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
+@am__fastdepCCAS_TRUE@	$(CPPASCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+@am__fastdepCCAS_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@AMDEP_TRUE@@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCCAS_FALSE@	DEPDIR=$(DEPDIR) $(CCASDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS@am__nodep@)$(CPPASCOMPILE) -c -o $@ $<
+
+.S.obj:
+@am__fastdepCCAS_TRUE@	$(AM_V_CPPAS)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
+@am__fastdepCCAS_TRUE@	$(CPPASCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
+@am__fastdepCCAS_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@AMDEP_TRUE@@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCCAS_FALSE@	DEPDIR=$(DEPDIR) $(CCASDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS@am__nodep@)$(CPPASCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+.S.lo:
+@am__fastdepCCAS_TRUE@	$(AM_V_CPPAS)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.lo$$||'`;\
+@am__fastdepCCAS_TRUE@	$(LTCPPASCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+@am__fastdepCCAS_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Plo
+@AMDEP_TRUE@@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCCAS_FALSE@	DEPDIR=$(DEPDIR) $(CCASDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS@am__nodep@)$(LTCPPASCOMPILE) -c -o $@ $<
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -2695,7 +2737,7 @@ s-zdefaultcc: Makefile
 	echo 'const DefaultPkgConfig = "pkg-config"' >> zdefaultcc.go.tmp
 	echo 'var OSArchSupportsCgo = map[string]bool{}' >> zdefaultcc.go.tmp
 	$(SHELL) $(srcdir)/../move-if-change zdefaultcc.go.tmp zdefaultcc.go
-	$(STAMP) $@ 
+	$(STAMP) $@
 
 # Post-process runtime.inc.raw (raw output of -fgo-c-header option when
 # compiling runtime) to prune out certain types that should not be
